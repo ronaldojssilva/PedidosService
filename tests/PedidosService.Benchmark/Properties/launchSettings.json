@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PedidosService.Benchmark": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

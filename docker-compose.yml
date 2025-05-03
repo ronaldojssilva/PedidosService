@@ -1,0 +1,47 @@
+services:
+  pedidosservice.database:
+    image: postgres:latest
+    container_name: pedidosservice.Database
+    environment:
+      - POSTGRES_DB=pedidosservice
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+
+  pedidosservice.api:
+    image: ${DOCKER_REGISTRY-}pedidosserviceapi
+    container_name: PedidoService.API
+    build:
+      context: .
+      dockerfile: src/PedidosService.API/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    depends_on:
+      - pedidosservice.database
+    networks:
+      - app-network
+
+  produto.externo.api:
+    image: ${DOCKER_REGISTRY-}produtoexternobapi
+    container_name: ProdutoExternoB.API
+    build:
+      context: .
+      dockerfile: src/ProdutoExternoB.API/Dockerfile
+    ports:
+      - "5037:8080"
+      - "5038:8081"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+  

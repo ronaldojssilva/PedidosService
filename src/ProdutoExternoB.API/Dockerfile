@@ -12,22 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/PedidosService.API/PedidosService.API.csproj", "src/PedidosService.API/"]
-COPY ["src/PedidosService.Infrastructure/PedidosService.Infrastructure.csproj", "src/PedidosService.Infrastructure/"]
-COPY ["src/PedidosService.Application/PedidosService.Application.csproj", "src/PedidosService.Application/"]
-COPY ["src/PedidosService.Domain/PedidosService.Domain.csproj", "src/PedidosService.Domain/"]
-RUN dotnet restore "./src/PedidosService.API/PedidosService.API.csproj"
+COPY ["src/ProdutoExternoB.API/ProdutoExternoB.API.csproj", "src/ProdutoExternoB.API/"]
+RUN dotnet restore "./src/ProdutoExternoB.API/ProdutoExternoB.API.csproj"
 COPY . .
-WORKDIR "/src/src/PedidosService.API"
-RUN dotnet build "./PedidosService.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/src/ProdutoExternoB.API"
+RUN dotnet build "./ProdutoExternoB.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./PedidosService.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./ProdutoExternoB.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PedidosService.API.dll"]
+ENTRYPOINT ["dotnet", "ProdutoExternoB.API.dll"]
