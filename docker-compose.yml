@@ -29,6 +29,18 @@ services:
     networks:
       - app-network
 
+  produto.externo.api:
+    image: ${DOCKER_REGISTRY-}produtoexternobapi
+    container_name: ProdutoExternoB.API
+    build:
+      context: .
+      dockerfile: src/ProdutoExternoB.API/Dockerfile
+    ports:
+      - "5037:8080"
+      - "5038:8081"
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge

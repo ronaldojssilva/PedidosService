@@ -23,6 +23,12 @@ public class PedidoController : ControllerBase
         {
             return BadRequest("Pedido inválido.");
         }
+        var pedido = await _pedidoService.ObterPorIdAsync(request.PedidoId);
+        if (pedido != null)
+        {
+            return BadRequest("Pedido ja enviado.");
+        }
+
 
         PedidoResponse pedidoResponse = await _pedidoService.CriarPedidoAsync(request);
         return StatusCode(StatusCodes.Status201Created, new { pedidoResponse.Id, pedidoResponse.Status});

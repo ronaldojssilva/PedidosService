@@ -7,6 +7,7 @@ using PedidosService.Application.Services;
 using PedidosService.Domain.Interfaces.Repositories;
 using PedidosService.Domain.Services;
 using PedidosService.Infrastructure.DbContexts;
+using PedidosService.Infrastructure.HostedServices;
 using PedidosService.Infrastructure.Repositories;
 
 namespace PedidosService.Infrastructure;
@@ -38,7 +39,7 @@ public static class PedidosModule
         });
 
         services.AddScoped<IPedidoEntregaService, PedidoEntregaService>();
-        //builder.Services.AddHostedService<PedidoEntregaWorker>();
+        services.AddHostedService<PedidoEntregaWorker>();
 
     }
 }
