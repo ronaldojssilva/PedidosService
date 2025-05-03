@@ -7,7 +7,7 @@ public class Pedido
 {
     private Pedido()
     {
-
+        Itens = new List<ItemPedido>();
     }
 
     public int Id { get; private set; }
