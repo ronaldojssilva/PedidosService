@@ -6,12 +6,12 @@ public class ItemPedido
 {
     public int Id { get; private set; }
     public int PedidoId { get; private set; }
-    public Pedido Pedido { get; private set; }
+    public Pedido Pedido { get; private set; } = null!;
     public int ProdutoId { get; private set; }
     public int Quantidade { get; private set; }
     public decimal ValorUnitario { get; private set; }
 
-    protected ItemPedido() { }
+    protected ItemPedido() {}
 
     public ItemPedido(int produtoId, decimal valorUnitario, int quantidade)
     {
