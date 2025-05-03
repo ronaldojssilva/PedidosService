@@ -17,4 +17,8 @@
     <ProjectReference Include="..\PedidosService.Domain\PedidosService.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DbContexts\Migrations\" />
+  </ItemGroup>
+
 </Project>
