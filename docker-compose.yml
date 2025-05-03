@@ -3,7 +3,7 @@ services:
     image: postgres:latest
     container_name: pedidosservice.Database
     environment:
-      - POSTGRES_DB=pedidoservice
+      - POSTGRES_DB=pedidosservice
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:
